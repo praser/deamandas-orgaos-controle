@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Username atomic component is expected to match the snapshot 1`] = `
+<p
+  class="sc-bdvvaa wtevO"
+>
+  User name
+</p>
+`;
