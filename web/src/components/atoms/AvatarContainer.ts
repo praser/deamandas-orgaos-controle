@@ -10,7 +10,6 @@ const AvatarContainer = styled.div`
   /* appearence */
   border-style: none;
   color: rgb(209, 211, 226);
-  cursor: pointer;
   overflow: hidden;
 
   /* other */

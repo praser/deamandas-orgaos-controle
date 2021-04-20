@@ -2,10 +2,12 @@ import React from 'react';
 import Profile from './components/organisms/Profile';
 import TopBar from './components/atoms/TopBar';
 import VerticalRule from './components/atoms/VerticalRule';
+import Input from './components/atoms/Input';
 
 function App(): JSX.Element {
   return (
     <TopBar>
+      <Input />
       <VerticalRule />
       <Profile
         name="Rubens Praser Júnior"

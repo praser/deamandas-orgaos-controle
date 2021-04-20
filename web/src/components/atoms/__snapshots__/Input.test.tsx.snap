@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input atomic component is expected to match the snapshot 1`] = `
+<input
+  class="sc-bdvvaa hxuJHo"
+  data-testid="input"
+/>
+`;
