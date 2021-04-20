@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar image atomic component is expected to math the snapshot 1`] = `
+<img
+  alt="avatar"
+  class="sc-bdvvaa plTdr"
+  src="some-image.png"
+/>
+`;
