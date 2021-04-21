@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchField molecule component is expected to match snapshot 1`] = `
+<input
+  class="sc-bdvvaa hxuJHo"
+  placeholder="Pesquisar..."
+/>
+`;
