@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
-interface Props {
-  src: string;
-  alt: string;
-}
+import AvatarImageProps from './AvatarImageProps';
 
-const AvatarImage = styled.img<Props>`
+const AvatarImage = styled.img<AvatarImageProps>`
   width: 100%;
   max-width: 300px;
   height: auto;

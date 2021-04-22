@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppName atomic component is expected to match snapshot 1`] = `
+<h1
+  class="sc-bdvvaa jJMrBK"
+  data-testid="app-title"
+>
+  Nome do App
+</h1>
+`;

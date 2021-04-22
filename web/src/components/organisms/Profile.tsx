@@ -3,14 +3,9 @@ import ProfileContainer from '../atoms/ProfileContainer';
 import UserLotation from '../atoms/UserLotation';
 import Username from '../atoms/Username';
 import Avatar from '../molecules/Avatar';
+import ProfileProps from './ProfileProps';
 
-interface Props {
-  name: string;
-  lotation: string;
-  src: string;
-}
-
-const Profile = ({ name, lotation, src }: Props): JSX.Element => {
+const Profile = ({ name, lotation, src }: ProfileProps): JSX.Element => {
   const firstName = (fullName: string): string => fullName.split(' ')[0];
 
   return (

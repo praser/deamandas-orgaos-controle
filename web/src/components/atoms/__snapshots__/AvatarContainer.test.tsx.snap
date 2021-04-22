@@ -2,7 +2,7 @@
 
 exports[`Avatar container atomic component is expected to match the snapshot 1`] = `
 <div
-  class="sc-bdvvaa kEjUpP"
+  class="sc-bdvvaa jIjFJd"
   data-testid="container"
 />
 `;
