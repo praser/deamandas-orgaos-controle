@@ -1,13 +1,8 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { InputHTMLAttributes, SyntheticEvent } from 'react';
+import React from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import Button from '../atoms/Button';
-
-interface IProps extends InputHTMLAttributes<HTMLInputElement> {
-  onClick: (e: SyntheticEvent) => void;
-  icon: IconProp;
-}
+import WithButtonAfterProps from './WithButtonAfterProps';
 
 const WButton = styled(Button)`
   height: 44px;
@@ -19,7 +14,7 @@ const WButton = styled(Button)`
 const withButtonAfter = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Component: StyledComponent<any, Record<string, never>>,
-) => ({ icon, onClick, ...rest }: IProps): JSX.Element => (
+) => ({ icon, onClick, ...rest }: WithButtonAfterProps): JSX.Element => (
   <>
     <Component {...rest} />
     <WButton type="button" onClick={onClick} data-testid="button">

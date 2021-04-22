@@ -3,10 +3,12 @@ import Profile from './components/organisms/Profile';
 import TopBar from './components/atoms/TopBar';
 import VerticalRule from './components/atoms/VerticalRule';
 import SearchField from './components/molecules/SerchField';
+import AppName from './components/atoms/AppName';
 
 function App(): JSX.Element {
   return (
     <TopBar>
+      <AppName>Demandas dos Órgãos de Controle</AppName>
       <SearchField />
       <VerticalRule />
       <Profile
