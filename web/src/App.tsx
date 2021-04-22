@@ -1,23 +1,21 @@
 import React from 'react';
-import Profile from './components/organisms/Profile';
-import TopBar from './components/atoms/TopBar';
-import VerticalRule from './components/atoms/VerticalRule';
-import SearchField from './components/molecules/SerchField';
-import AppName from './components/atoms/AppName';
+import Select from './components/atoms/Select';
 
-function App(): JSX.Element {
-  return (
-    <TopBar>
-      <AppName>Demandas dos Órgãos de Controle</AppName>
-      <SearchField />
-      <VerticalRule />
-      <Profile
-        name="Rubens Praser Júnior"
-        lotation="GEOTR"
-        src="https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80"
-      />
-    </TopBar>
-  );
-}
+const options = [
+  { value: 'cgu', name: 'CGU - Controladoria Geral da União' },
+  { value: 'mpf', name: 'MPF - Ministério Público Federal' },
+  { value: 'tcu', name: 'TCU - Tribunal de Contas da União' },
+];
+
+const App = (): JSX.Element => (
+  <Select
+    closeOnSelect={false}
+    printOptions="on-focus"
+    multiple
+    placeholder="Selecione um órgão de controle"
+    options={options}
+    value={['cgu']}
+  />
+);
 
 export default App;

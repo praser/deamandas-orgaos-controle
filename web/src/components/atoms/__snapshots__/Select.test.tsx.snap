@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select atomic component is expected to match snapshot 1`] = `
+<span
+  data-testid="select"
+>
+  <div
+    class="select-search"
+  >
+    <div
+      class="select-search__value"
+    >
+      <input
+        autocomplete="on"
+        class="select-search__input"
+        readonly=""
+        tabindex="0"
+        value="a"
+      />
+    </div>
+  </div>
+  ;
+</span>
+`;
