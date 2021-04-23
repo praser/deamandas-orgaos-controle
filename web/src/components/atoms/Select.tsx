@@ -5,7 +5,7 @@ import './Select.css';
 
 const Select = (props: SelectProps): JSX.Element => (
   <span data-testid="select">
-    <SelectSearch {...props} />;
+    <SelectSearch {...props} />
   </span>
 );
 
