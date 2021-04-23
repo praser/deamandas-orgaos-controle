@@ -1,21 +1,11 @@
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import Select from './components/atoms/Select';
-
-const options = [
-  { value: 'cgu', name: 'CGU - Controladoria Geral da União' },
-  { value: 'mpf', name: 'MPF - Ministério Público Federal' },
-  { value: 'tcu', name: 'TCU - Tribunal de Contas da União' },
-];
+import Highlight from './components/molecules/Highlight';
 
 const App = (): JSX.Element => (
-  <Select
-    closeOnSelect={false}
-    printOptions="on-focus"
-    multiple
-    placeholder="Selecione um órgão de controle"
-    options={options}
-    value={['cgu']}
-  />
+  <Highlight title="Lorem ipsum dolor" icon={faCalendarAlt}>
+    R$ 3.900,00
+  </Highlight>
 );
 
 export default App;

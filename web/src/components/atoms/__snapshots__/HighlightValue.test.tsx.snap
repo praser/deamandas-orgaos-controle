@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighlightValue component is expected to match the snapshot 1`] = `
+<p
+  class="sc-bdvvaa fGaScV"
+  data-testid="testid"
+>
+  1000
+</p>
+`;

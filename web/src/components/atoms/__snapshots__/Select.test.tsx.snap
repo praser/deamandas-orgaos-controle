@@ -19,6 +19,5 @@ exports[`Select atomic component is expected to match snapshot 1`] = `
       />
     </div>
   </div>
-  ;
 </span>
 `;
