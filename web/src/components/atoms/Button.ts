@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import ButtonProps from './ButtonProps';
 
-const Button = styled.button`
+const Button = styled.button<ButtonProps>`
   /* Layout */
   align-items: center;
   box-sizing: border-box;
   display: inline-flex;
-  height: 44px;
+  height: ${({ small }) => (small ? 30 : 44)}px;
   justify-content: center;
   margin-bottom: 4px;
   margin-left: 0px;

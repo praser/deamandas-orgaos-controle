@@ -1,0 +1,19 @@
+version: "3"
+networks:
+  demandas-orgaos-controle-net:
+    driver: bridge
+services:
+  auth_api:
+    container_name: doc-auth-api
+    environment:
+      APP_PATH: ""
+      AUTH_DRIVER: "inMemory"
+      AUTH_SECRET: secret
+      AUTH_EXPIRATION: 21600
+      AUTH_ISSUER: SUDEP
+    image: praser/api-autenticacao:1.2.0
+    networks:
+      - demandas-orgaos-controle-net
+    ports:
+      - 3001:3000
+

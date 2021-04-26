@@ -5,8 +5,13 @@ import HighlightIcon from '../atoms/HighlightIcon';
 import HighlightValue from '../atoms/HighlightValue';
 import HighlightProps from './HighlightProps';
 
-const Highlight = ({ title, icon, children }: HighlightProps): JSX.Element => (
-  <HighlightContainer data-testid="highlight">
+const Highlight = ({
+  title,
+  icon,
+  children,
+  color,
+}: HighlightProps): JSX.Element => (
+  <HighlightContainer data-testid="highlight" color={color}>
     <div style={{ flex: 1 }}>
       <HighlightTitle>{title}</HighlightTitle>
       <HighlightValue>{children}</HighlightValue>

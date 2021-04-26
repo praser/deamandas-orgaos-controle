@@ -6,6 +6,7 @@ interface HighlightProps {
   title: string;
   icon: IconProp;
   children: React.ReactNode;
+  color?: string;
 }
 
 export default HighlightProps;
