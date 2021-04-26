@@ -2,7 +2,7 @@
 
 exports[`HighlightContainer component is expected to match the snapshot 1`] = `
 <div
-  class="sc-bdvvaa cxDlSy"
+  class="sc-bdvvaa iPgzyR"
   data-testid="testid"
 />
 `;
