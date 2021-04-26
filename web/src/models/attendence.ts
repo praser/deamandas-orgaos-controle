@@ -4,7 +4,7 @@ interface Attendance {
   issuedAt: string;
   receivedAt: string;
   deadline: string;
-  stats: string;
+  status: string;
 }
 
 export default Attendance;

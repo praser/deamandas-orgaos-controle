@@ -18,7 +18,7 @@ const HighlightContainer = styled.div`
   border-color: rgb(227, 230, 240);
   border-style: solid;
   border-width: 1px;
-  border-left-color: rgb(78, 115, 223);
+  border-left-color: ${({ color }) => color || 'rgb(78, 115, 223)'};
   border-left-style: solid;
   border-left-width: 4px;
   box-shadow: rgba(58, 59, 69, 0.15) 0px 2.4px 28px 0px;
