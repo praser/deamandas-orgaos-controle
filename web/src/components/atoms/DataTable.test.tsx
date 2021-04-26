@@ -2,15 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IDataTableColumn } from 'react-data-table-component';
 import DataTable from './DataTable';
-
-interface IData {
-  governmentAgency: string;
-  document: string;
-  issuedAt: string;
-  receivedAt: string;
-  deadline: string;
-  stats: string;
-}
+import Attendance from '../../models/attendence';
 
 const columns: IDataTableColumn[] = [
   { name: 'Órgao', selector: 'governmentAgency', sortable: true },
@@ -21,7 +13,7 @@ const columns: IDataTableColumn[] = [
   { name: 'Situação', selector: 'stats', sortable: true },
 ];
 
-const data: IData[] = [
+const data: Attendance[] = [
   {
     governmentAgency: 'lorem',
     document: 'lorem',
@@ -37,7 +29,7 @@ describe('DataTable component', () => {
   const testId = 'data-table';
 
   beforeEach(() => {
-    render(<DataTable<IData> columns={columns} data={data} />);
+    render(<DataTable<Attendance> columns={columns} data={data} />);
     datatable = screen.queryByTestId(testId);
   });
 
