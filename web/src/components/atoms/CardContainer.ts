@@ -7,6 +7,7 @@ const CardContainer = styled.div`
   min-height: 100px;
   margin-bottom: 24px;
   width: 100%;
+  position: relative;
 
   /* Text */
   font-family: Nunito, -apple-system, system-ui, 'Segoe UI', Roboto,

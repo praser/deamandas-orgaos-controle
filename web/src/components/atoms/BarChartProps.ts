@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-interface Dataset {
+export interface Dataset {
   backgroundColor?: string;
   data: number[];
   label?: string;

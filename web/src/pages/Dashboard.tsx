@@ -21,9 +21,11 @@ import User from '../models/user';
 import withLoading from '../components/molecules/withLoading';
 import Stats from '../models/stats';
 import Agency from '../models/agency';
+import MonthStats from '../models/monthStats';
 
 const HighLightWithLoading = withLoading(Highlight);
 const SelectWithLoading = withLoading(Select);
+const CardWithLoading = withLoading(Card);
 
 const getUser = (): User => {
   const jwtKey = process.env.REACT_APP_JWT_KEY || '';
@@ -45,36 +47,11 @@ const TopBar = (): JSX.Element => {
   );
 };
 
-const filters = [
-  <Select options={[{ name: 'teste', value: 'teste' }]} key={1} />,
-  <Select options={[{ name: 'teste', value: 'teste' }]} key={2} />,
-  <Select options={[{ name: 'teste', value: 'teste' }]} key={3} />,
-];
-
 const buttons = [
   <Button small key={1}>
     Cadastrar documento
   </Button>,
 ];
-
-const card1 = (
-  <Card title="Prazo de atendimento">
-    <DoughnutChart data={[23, 15]} labels={['Em atrazo', 'Dentro do prazo']} />
-  </Card>
-);
-
-const card2 = (
-  <Card title="Atendimentos efetuados">
-    <BarChart
-      datasets={[
-        { label: '2019', data: [5, 7, 8, 6] },
-        { label: '2020', data: [4, 5, 9, 3] },
-        { label: '2021', data: [3, 3, 2, 6] },
-      ]}
-      labels={['JAN', 'FEV', 'MAR', 'ABR']}
-    />
-  </Card>
-);
 
 const data = [
   {
@@ -118,11 +95,53 @@ const card3 = (
 );
 
 const defaultStats = {
-  year: 0,
   inAttendence: 0,
   onTime: 0,
   expired: 0,
   attended: 0,
+};
+
+const defaultMonthSatats = {
+  year: new Date().getFullYear(),
+  months: {
+    jan: defaultStats,
+    fev: defaultStats,
+    mar: defaultStats,
+    abr: defaultStats,
+    mai: defaultStats,
+    jun: defaultStats,
+    jul: defaultStats,
+    ago: defaultStats,
+    set: defaultStats,
+    out: defaultStats,
+    nov: defaultStats,
+    dez: defaultStats,
+  },
+};
+
+const formatMonthStats = (monthStats: MonthStats[]) => {
+  const colors = ['#A0ECD0', '#6D98BA', '#F6D0B1', '#EE92C2', '#424874'];
+  const stats = monthStats
+    .sort((a, b) => (a.year <= b.year ? -1 : 1))
+    .map((item, i) => ({
+      backgroundColor: colors[i],
+      label: item.year.toString(),
+      data: [
+        item.months.jan.attended,
+        item.months.fev.attended,
+        item.months.mar.attended,
+        item.months.abr.attended,
+        item.months.mai.attended,
+        item.months.jun.attended,
+        item.months.jul.attended,
+        item.months.ago.attended,
+        item.months.set.attended,
+        item.months.out.attended,
+        item.months.nov.attended,
+        item.months.dez.attended,
+      ],
+    }));
+  return stats;
 };
 
 const Dashboard = (): JSX.Element => {
@@ -133,6 +152,10 @@ const Dashboard = (): JSX.Element => {
   const currentStats: Stats = stats[0];
   const [yearsLoading, setYearsLoading] = useState<boolean>(false);
   const [years, setYears] = useState<number[]>([]);
+  const [monthStatsLoading, setMonthStatsLoading] = useState<boolean>(false);
+  const [monthStats, setMonthStats] = useState<MonthStats[]>([
+    defaultMonthSatats,
+  ]);
 
   const fetchStats = useCallback(async () => {
     setStatsLoading(true);
@@ -158,11 +181,20 @@ const Dashboard = (): JSX.Element => {
     setYearsLoading(false);
   }, []);
 
+  const fetchMonthStats = useCallback(async () => {
+    setMonthStatsLoading(true);
+    const res = await fetch('http://localhost:2004/demands/stats/monthly');
+    const json = (await res.json()) as MonthStats[];
+    setMonthStats(json);
+    setMonthStatsLoading(false);
+  }, []);
+
   useEffect(() => {
     fetchStats();
     fetchAgencies();
     fetchYears();
-  }, [fetchStats, fetchAgencies, fetchYears]);
+    fetchMonthStats();
+  }, [fetchStats, fetchAgencies, fetchYears, fetchMonthStats]);
 
   return (
     <DashboardTemplate
@@ -246,8 +278,25 @@ const Dashboard = (): JSX.Element => {
           {currentStats.attended}
         </HighLightWithLoading>,
       ]}
-      content1={card1}
-      content2={card2}
+      content1={
+        <CardWithLoading title="Prazo de atendimento" loading={statsLoading}>
+          <DoughnutChart
+            data={[currentStats.expired, currentStats.onTime]}
+            labels={['Em atraso', 'Dentro do prazo']}
+          />
+        </CardWithLoading>
+      }
+      content2={
+        <CardWithLoading
+          title="Atendimentos efetuados"
+          loading={monthStatsLoading}
+        >
+          <BarChart
+            datasets={formatMonthStats(monthStats)}
+            labels={Object.keys(monthStats[0].months).map(m => m.toUpperCase())}
+          />
+        </CardWithLoading>
+      }
       content3={card3}
     />
   );
