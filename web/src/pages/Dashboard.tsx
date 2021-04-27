@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   faCheckCircle,
   faFileAlt,
@@ -19,6 +19,11 @@ import JwtPayload from '../models/jwtPayload';
 import defaultPhoto from '../assets/images/profile.png';
 import User from '../models/user';
 import withLoading from '../components/molecules/withLoading';
+import Stats from '../models/stats';
+import Agency from '../models/agency';
+
+const HighLightWithLoading = withLoading(Highlight);
+const SelectWithLoading = withLoading(Select);
 
 const getUser = (): User => {
   const jwtKey = process.env.REACT_APP_JWT_KEY || '';
@@ -41,33 +46,15 @@ const TopBar = (): JSX.Element => {
 };
 
 const filters = [
-  <Select options={[{ name: 'teste', value: 'teste' }]} />,
-  <Select options={[{ name: 'teste', value: 'teste' }]} />,
-  <Select options={[{ name: 'teste', value: 'teste' }]} />,
+  <Select options={[{ name: 'teste', value: 'teste' }]} key={1} />,
+  <Select options={[{ name: 'teste', value: 'teste' }]} key={2} />,
+  <Select options={[{ name: 'teste', value: 'teste' }]} key={3} />,
 ];
 
-const buttons = [<Button small>Cadastrar documento</Button>];
-
-const HighLightWithLoading = withLoading(Highlight);
-
-const highlights = [
-  <HighLightWithLoading
-    loading
-    title="Em andamento"
-    icon={faFileAlt}
-    color="#f6c23e"
-  >
-    9
-  </HighLightWithLoading>,
-  <Highlight title="Dentro do prazo" icon={faThumbsUp}>
-    7
-  </Highlight>,
-  <Highlight title="Em atraso" icon={faThumbsDown} color="#e74a3b">
-    2
-  </Highlight>,
-  <Highlight title="Respondidos" icon={faCheckCircle} color="#1cc88a">
-    35
-  </Highlight>,
+const buttons = [
+  <Button small key={1}>
+    Cadastrar documento
+  </Button>,
 ];
 
 const card1 = (
@@ -130,16 +117,140 @@ const card3 = (
   </Card>
 );
 
-const Dashboard = (): JSX.Element => (
-  <DashboardTemplate
-    topbar={<TopBar />}
-    filters={filters}
-    buttons={buttons}
-    highlights={highlights}
-    content1={card1}
-    content2={card2}
-    content3={card3}
-  />
-);
+const defaultStats = {
+  year: 0,
+  inAttendence: 0,
+  onTime: 0,
+  expired: 0,
+  attended: 0,
+};
+
+const Dashboard = (): JSX.Element => {
+  const [statsLoading, setStatsLoading] = useState<boolean>(false);
+  const [stats, setStats] = useState<Stats[]>([defaultStats]);
+  const [agenciesLoading, setAgenciesLoading] = useState<boolean>(false);
+  const [agencies, setAgencies] = useState<Agency[]>([]);
+  const currentStats: Stats = stats[0];
+  const [yearsLoading, setYearsLoading] = useState<boolean>(false);
+  const [years, setYears] = useState<number[]>([]);
+
+  const fetchStats = useCallback(async () => {
+    setStatsLoading(true);
+    const res = await fetch('http://localhost:2004/demands/stats');
+    const json = (await res.json()) as Stats[];
+    setStats(json);
+    setStatsLoading(false);
+  }, []);
+
+  const fetchAgencies = useCallback(async () => {
+    setAgenciesLoading(true);
+    const res = await fetch('http://localhost:2004/agencies');
+    const json = (await res.json()) as Agency[];
+    setAgencies(json);
+    setAgenciesLoading(false);
+  }, []);
+
+  const fetchYears = useCallback(async () => {
+    setYearsLoading(true);
+    const res = await fetch('http://localhost:2004/years');
+    const json = (await res.json()) as number[];
+    setYears(json);
+    setYearsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchStats();
+    fetchAgencies();
+    fetchYears();
+  }, [fetchStats, fetchAgencies, fetchYears]);
+
+  return (
+    <DashboardTemplate
+      topbar={<TopBar />}
+      filters={[
+        <SelectWithLoading
+          loading={agenciesLoading}
+          options={agencies.map(ag => ({
+            name: ag.abbreviation,
+            value: ag.id.toString(),
+          }))}
+          closeOnSelect={false}
+          printOptions="on-focus"
+          value={agencies.map(ag => ag.id.toString())}
+          key={1}
+          multiple
+          search
+          emptyMessage="Aguarde o carregamento da lista de órgãos de controle"
+        />,
+        <Select
+          options={[
+            { name: 'Dentro do prazo', value: 'dentroDoPrazo' },
+            { name: 'Em atraso', value: 'emAtraso' },
+          ]}
+          closeOnSelect={false}
+          printOptions="on-focus"
+          value={['dentroDoPrazo', 'emAtraso']}
+          key={2}
+          multiple
+          search
+        />,
+        <SelectWithLoading
+          loading={yearsLoading}
+          options={years.map(year => ({
+            name: year.toString(),
+            value: year.toString(),
+          }))}
+          closeOnSelect={false}
+          printOptions="on-focus"
+          value={[new Date().getFullYear().toString()]}
+          key={3}
+          search
+          emptyMessage="Aguarde o carregamento da lista de anos"
+        />,
+      ]}
+      buttons={buttons}
+      highlights={[
+        <HighLightWithLoading
+          loading={statsLoading}
+          title="Em andamento"
+          icon={faFileAlt}
+          color="#f6c23e"
+          key={1}
+        >
+          {currentStats.inAttendence}
+        </HighLightWithLoading>,
+        <HighLightWithLoading
+          loading={statsLoading}
+          title="Dentro do prazo"
+          icon={faThumbsUp}
+          key={2}
+        >
+          {currentStats.onTime}
+        </HighLightWithLoading>,
+        <HighLightWithLoading
+          loading={statsLoading}
+          title="Em atraso"
+          icon={faThumbsDown}
+          color="#e74a3b"
+          key={3}
+        >
+          {currentStats.expired}
+        </HighLightWithLoading>,
+        <HighLightWithLoading
+          loading={statsLoading}
+          title="Respondidos"
+          icon={faCheckCircle}
+          color="#1cc88a"
+          key={4}
+        >
+          {currentStats.attended}
+        </HighLightWithLoading>,
+      ]}
+      content1={card1}
+      content2={card2}
+      content3={card3}
+    />
+  );
+};
 
 export default Dashboard;

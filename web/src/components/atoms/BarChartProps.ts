@@ -1,10 +1,12 @@
+import { HTMLAttributes } from 'react';
+
 interface Dataset {
   backgroundColor?: string;
   data: number[];
   label?: string;
 }
 
-interface BarChartProps {
+interface BarChartProps extends HTMLAttributes<HTMLElement> {
   labels: string[];
   datasets: Dataset[];
 }
