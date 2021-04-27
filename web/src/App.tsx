@@ -37,7 +37,6 @@ const App = (): JSX.Element => {
   const [jwt, setJwt] = useState(sessionStorage.getItem(jwtKey));
 
   const doLogin = useCallback(async () => {
-    console.log('rodou');
     const currentUser = await getCurrentUser();
     const auth: AuthResult = await postAuthenticate(currentUser);
 
@@ -51,12 +50,14 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     if (!isLoggedin()) doLogin();
-  }, [doLogin]);
+  }, [doLogin, jwt]);
 
   const element = sessionStorage.getItem(jwtKey) ? (
     <Dashboard />
   ) : (
-    <span>Aguarde enquanto estamos fazendo o seu login</span>
+    <span data-testid="no-auth">
+      Aguarde enquanto estamos fazendo o seu login
+    </span>
   );
 
   return element;
