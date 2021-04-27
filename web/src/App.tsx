@@ -7,26 +7,40 @@ const jwtKey = process.env.REACT_APP_JWT_KEY || 'jwt';
 const currentUserApi = process.env.REACT_APP_CURRENT_USER_API || '';
 const authApi = process.env.REACT_APP_AUTH_API || '';
 
+const isLoggedin = (): boolean => !!sessionStorage.getItem(jwtKey);
+
+const getCurrentUser = async (): Promise<string> => {
+  const resCurrentUser = await fetch(currentUserApi);
+  const currentUser: CurrentUser = await resCurrentUser.json();
+  const { id } = currentUser;
+  return id;
+};
+
+const postAuthenticate = async (username: string): Promise<AuthResult> => {
+  const resAuth = await fetch(`${authApi}/authenticate/username`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      credentials: {
+        username,
+      },
+    }),
+  });
+  const auth: AuthResult = await resAuth.json();
+  return auth;
+};
+
 const App = (): JSX.Element => {
   const [jwt, setJwt] = useState(sessionStorage.getItem(jwtKey));
 
-  const login = useCallback(async () => {
-    const resCurrentUser = await fetch(currentUserApi);
-    const currentUser: CurrentUser = await resCurrentUser.json();
-    const { id: username } = currentUser;
-    const resAuth = await fetch(`${authApi}/authenticate/username`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        credentials: {
-          username,
-        },
-      }),
-    });
-    const auth: AuthResult = await resAuth.json();
+  const doLogin = useCallback(async () => {
+    console.log('rodou');
+    const currentUser = await getCurrentUser();
+    const auth: AuthResult = await postAuthenticate(currentUser);
+
     const { result } = auth;
     if (result) {
       const { token } = auth;
@@ -36,10 +50,10 @@ const App = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    if (!sessionStorage.getItem(jwtKey)) login();
-  }, [login, jwt]);
+    if (!isLoggedin()) doLogin();
+  }, [doLogin]);
 
-  const element = sessionStorage.getItem(jwtKey || 'jwt') ? (
+  const element = sessionStorage.getItem(jwtKey) ? (
     <Dashboard />
   ) : (
     <span>Aguarde enquanto estamos fazendo o seu login</span>
