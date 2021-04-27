@@ -18,6 +18,7 @@ import Header from '../components/organisms/Header';
 import JwtPayload from '../models/jwtPayload';
 import defaultPhoto from '../assets/images/profile.png';
 import User from '../models/user';
+import withLoading from '../components/molecules/withLoading';
 
 const getUser = (): User => {
   const jwtKey = process.env.REACT_APP_JWT_KEY || '';
@@ -47,10 +48,17 @@ const filters = [
 
 const buttons = [<Button small>Cadastrar documento</Button>];
 
+const HighLightWithLoading = withLoading(Highlight);
+
 const highlights = [
-  <Highlight title="Em andamento" icon={faFileAlt} color="#f6c23e">
+  <HighLightWithLoading
+    loading
+    title="Em andamento"
+    icon={faFileAlt}
+    color="#f6c23e"
+  >
     9
-  </Highlight>,
+  </HighLightWithLoading>,
   <Highlight title="Dentro do prazo" icon={faThumbsUp}>
     7
   </Highlight>,

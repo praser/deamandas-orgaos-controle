@@ -1,8 +1,8 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
-interface HighlightProps {
+interface HighlightProps extends HTMLAttributes<HTMLElement> {
   title: string;
   icon: IconProp;
   children: React.ReactNode;
