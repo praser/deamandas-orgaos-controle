@@ -1,5 +1,5 @@
 interface Stats {
-  inAttendence: number;
+  inAttendance: number;
   onTime: number;
   expired: number;
   attended: number;

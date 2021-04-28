@@ -6,6 +6,7 @@ import {
   faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from 'jwt-decode';
+import { format, parseISO } from 'date-fns';
 import Button from '../components/atoms/Button';
 import DoughnutChart from '../components/atoms/DoughnutChart';
 import BarChart from '../components/atoms/BarChart';
@@ -22,6 +23,7 @@ import withLoading from '../components/molecules/withLoading';
 import Stats from '../models/stats';
 import Agency from '../models/agency';
 import MonthStats from '../models/monthStats';
+import Attendance from '../models/attendance';
 
 const HighLightWithLoading = withLoading(Highlight);
 const SelectWithLoading = withLoading(Select);
@@ -53,49 +55,29 @@ const buttons = [
   </Button>,
 ];
 
-const data = [
-  {
-    governmentAgency: 'OGU',
-    document: '001/2021',
-    issuedAt: '2021-04-16',
-    receivedAt: '2021-04-18',
-    deadline: '2021-04-30',
-    status: 'Aguardando dados da GIGOV',
-  },
-  {
-    governmentAgency: 'OGU',
-    document: '001/2021',
-    issuedAt: '2021-04-16',
-    receivedAt: '2021-04-18',
-    deadline: '2021-04-30',
-    status: 'Aguardando dados da GIGOV',
-  },
-  {
-    governmentAgency: 'OGU',
-    document: '001/2021',
-    issuedAt: '2021-04-16',
-    receivedAt: '2021-04-18',
-    deadline: '2021-04-30',
-    status: 'Aguardando dados da GIGOV',
-  },
-];
-
 const columns = [
   { name: 'Órgão', selector: 'governmentAgency' },
   { name: 'Documento', selector: 'document' },
-  { name: 'Data de emissão', selector: 'issuedAt' },
-  { name: 'Data de recebimento', selector: 'receivedAt' },
-  { name: 'Prazo para resposta', selector: 'deadline' },
+  {
+    name: 'Data de emissão',
+    selector: 'issuedAt',
+    format: (row: Attendance) => format(parseISO(row.issuedAt), 'dd/MM/yyyy'),
+  },
+  {
+    name: 'Data de recebimento',
+    selector: 'receivedAt',
+    format: (row: Attendance) => format(parseISO(row.issuedAt), 'dd/MM/yyyy'),
+  },
+  {
+    name: 'Prazo para resposta',
+    selector: 'deadline',
+    format: (row: Attendance) => format(parseISO(row.issuedAt), 'dd/MM/yyyy'),
+  },
   { name: 'Situação', selector: 'status' },
 ];
-const card3 = (
-  <Card title="Atendimentos em andamento">
-    <DataTable columns={columns} data={data} />
-  </Card>
-);
 
 const defaultStats = {
-  inAttendence: 0,
+  inAttendance: 0,
   onTime: 0,
   expired: 0,
   attended: 0,
@@ -156,6 +138,10 @@ const Dashboard = (): JSX.Element => {
   const [monthStats, setMonthStats] = useState<MonthStats[]>([
     defaultMonthSatats,
   ]);
+  const [InAttendanceLoading, setInAttendanceLoading] = useState<boolean>(
+    false,
+  );
+  const [InAttendance, setInAttendance] = useState<Attendance[]>([]);
 
   const fetchStats = useCallback(async () => {
     setStatsLoading(true);
@@ -189,12 +175,27 @@ const Dashboard = (): JSX.Element => {
     setMonthStatsLoading(false);
   }, []);
 
+  const fetchInAttendance = useCallback(async () => {
+    setInAttendanceLoading(true);
+    const res = await fetch('http://localhost:2004/demands/in-attendance');
+    const json = (await res.json()) as Attendance[];
+    setInAttendance(json);
+    setInAttendanceLoading(false);
+  }, []);
+
   useEffect(() => {
     fetchStats();
     fetchAgencies();
     fetchYears();
     fetchMonthStats();
-  }, [fetchStats, fetchAgencies, fetchYears, fetchMonthStats]);
+    fetchInAttendance();
+  }, [
+    fetchStats,
+    fetchAgencies,
+    fetchYears,
+    fetchMonthStats,
+    fetchInAttendance,
+  ]);
 
   return (
     <DashboardTemplate
@@ -249,7 +250,7 @@ const Dashboard = (): JSX.Element => {
           color="#f6c23e"
           key={1}
         >
-          {currentStats.inAttendence}
+          {currentStats.inAttendance}
         </HighLightWithLoading>,
         <HighLightWithLoading
           loading={statsLoading}
@@ -297,7 +298,14 @@ const Dashboard = (): JSX.Element => {
           />
         </CardWithLoading>
       }
-      content3={card3}
+      content3={
+        <CardWithLoading
+          title="Atendimentos em andamento"
+          loading={InAttendanceLoading}
+        >
+          <DataTable columns={columns} data={InAttendance} />
+        </CardWithLoading>
+      }
     />
   );
 };

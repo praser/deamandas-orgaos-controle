@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IDataTableColumn } from 'react-data-table-component';
 import DataTable from './DataTable';
-import Attendance from '../../models/attendence';
+import Attendance from '../../models/attendance';
 
 const columns: IDataTableColumn[] = [
   { name: 'Órgao', selector: 'governmentAgency', sortable: true },
@@ -10,7 +10,7 @@ const columns: IDataTableColumn[] = [
   { name: 'Data de emissão', selector: 'issuedAt', sortable: true },
   { name: 'Data de entrada', selector: 'receivedAt', sortable: true },
   { name: 'Prazo para resposta', selector: 'deadline', sortable: true },
-  { name: 'Situação', selector: 'stats', sortable: true },
+  { name: 'Situação', selector: 'status', sortable: true },
 ];
 
 const data: Attendance[] = [
@@ -20,7 +20,7 @@ const data: Attendance[] = [
     issuedAt: 'lorem',
     receivedAt: 'lorem',
     deadline: 'lorem',
-    stats: 'lorem',
+    status: 'lorem',
   },
 ];
 
