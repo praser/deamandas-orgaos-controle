@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard layout styled components Content1 is expected to match the snapshot 1`] = `
+<div
+  class="sc-eCImvq ctukcT"
+  data-testid="layout"
+/>
+`;
+
+exports[`Dashboard layout styled components Content2 is expected to match the snapshot 1`] = `
+<div
+  class="sc-jRQAMF iKOuxR"
+  data-testid="layout"
+/>
+`;
+
+exports[`Dashboard layout styled components InlineGroup is expected to match the snapshot 1`] = `
+<div
+  class="sc-hKwCoD xvjnu"
+  data-testid="layout"
+/>
+`;
+
+exports[`Dashboard layout styled components MainContent is expected to match the snapshot 1`] = `
+<div
+  class="sc-gsDJrp eqafHM"
+  data-testid="layout"
+/>
+`;
+
+exports[`Dashboard layout styled components TopControls is expected to match the snapshot 1`] = `
+<div
+  class="sc-dkPtyc fOAGCu"
+  data-testid="layout"
+/>
+`;
+
+exports[`Dashboard layout styled components Topbar is expected to match the snapshot 1`] = `
+<div
+  class="sc-bdvvaa cIKZCl"
+  data-testid="layout"
+/>
+`;

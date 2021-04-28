@@ -17,9 +17,10 @@ const Dashboard = ({
   content1,
   content2,
   content3,
+  ...rest
 }: DashBoardProps): JSX.Element => {
   return (
-    <>
+    <span {...rest}>
       <Topbar>{topbar}</Topbar>
       <MainContent>
         <TopControls>
@@ -33,7 +34,7 @@ const Dashboard = ({
         </InlineGroup>
         {content3}
       </MainContent>
-    </>
+    </span>
   );
 };
 

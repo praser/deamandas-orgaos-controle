@@ -5,7 +5,7 @@ import withButtonAfter from './withButtonAfter';
 
 const InputWithButtonAfter = withButtonAfter(Input);
 
-const handleClick = (e: SyntheticEvent) => {
+const handleClick = (e: SyntheticEvent): void => {
   e.preventDefault();
   // eslint-disable-next-line no-alert
   alert('what a nice search!');

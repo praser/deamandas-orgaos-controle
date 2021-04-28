@@ -64,6 +64,18 @@
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!react-select-search)"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "interfaces",
+      "<rootDir>/src/models",
+      "<rootDir>/src/setupTests.ts",
+      "<rootDir>/src/reportWebVitals.ts",
+      "<rootDir>/src/index.tsx"
     ]
   }
 }
