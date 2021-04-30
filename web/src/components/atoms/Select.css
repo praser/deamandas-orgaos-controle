@@ -50,6 +50,22 @@
   text-overflow: ellipsis;
   line-height: 36px;
   -webkit-appearance: none;
+  box-shadow: rgb(58 59 69 / 15%) 0px 2.4px 28px 0px;
+  border-color: rgb(227, 230, 240);
+  border-style: solid;
+  border-width: 1px;
+  transition-delay: 0s, 0s;
+  transition-duration: 0.15s, 0.15s;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: ease-in-out, ease-in-out;
+}
+
+.select-search__input:focus {
+  color: #69707a;
+  background-color: #fff;
+  border-color: transparent;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(0 97 242 / 25%);
 }
 
 .select-search__input::-webkit-search-decoration,

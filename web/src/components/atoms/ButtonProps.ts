@@ -1,4 +1,6 @@
-interface ButtonProps {
+import { HTMLAttributes } from 'react';
+
+interface ButtonProps extends HTMLAttributes<HTMLElement> {
   small?: boolean;
 }
 

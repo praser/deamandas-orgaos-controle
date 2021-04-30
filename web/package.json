@@ -14,6 +14,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "chart.js": "^3.2.0",
+    "date-fns": "^2.21.1",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.2",
     "react-data-table-component": "^6.11.7",
@@ -43,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@humeris/espresso-shot": "^3.0.0",
     "@types/faker": "^5.5.3",
     "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
@@ -62,6 +65,18 @@
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!react-select-search)"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "interfaces",
+      "<rootDir>/src/models",
+      "<rootDir>/src/setupTests.ts",
+      "<rootDir>/src/reportWebVitals.ts",
+      "<rootDir>/src/index.tsx"
     ]
   }
 }

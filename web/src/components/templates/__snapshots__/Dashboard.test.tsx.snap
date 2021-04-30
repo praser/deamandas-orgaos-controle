@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component is expected to match the snapshot 1`] = `
+<span
+  data-testid="testid"
+>
+  <div
+    class="sc-bdvvaa cIKZCl"
+  />
+  <div
+    class="sc-gsDJrp eqafHM"
+  >
+    <div
+      class="sc-dkPtyc fOAGCu"
+    >
+      <div
+        class="sc-hKwCoD xvjnu"
+      >
+        <span />
+      </div>
+      <div
+        class="sc-hKwCoD xvjnu"
+      >
+        <span />
+      </div>
+    </div>
+    <div
+      class="sc-hKwCoD xvjnu"
+    >
+      <span />
+    </div>
+    <div
+      class="sc-hKwCoD xvjnu"
+    >
+      <div
+        class="sc-eCImvq ctukcT"
+      />
+      <div
+        class="sc-jRQAMF iKOuxR"
+      />
+    </div>
+  </div>
+</span>
+`;

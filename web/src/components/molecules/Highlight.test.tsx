@@ -8,14 +8,15 @@ describe('Highlight molecule component', () => {
   let highlight: HTMLElement;
   const title = faker.lorem.words(3);
   const content = faker.datatype.number(999);
+  const testId = 'highlight';
 
   beforeEach(() => {
     render(
-      <Highlight title={title} icon={faCalendarAlt}>
+      <Highlight title={title} icon={faCalendarAlt} data-testid={testId}>
         {content}
       </Highlight>,
     );
-    highlight = screen.getByTestId('highlight');
+    highlight = screen.getByTestId(testId);
   });
 
   it('is expected to be in the page', () => {

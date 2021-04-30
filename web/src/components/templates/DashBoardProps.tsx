@@ -1,4 +1,6 @@
-interface DashBoardProps {
+import { HTMLAttributes } from 'react';
+
+interface DashBoardProps extends HTMLAttributes<HTMLDivElement> {
   topbar: any;
   filters: any[];
   buttons: any[];

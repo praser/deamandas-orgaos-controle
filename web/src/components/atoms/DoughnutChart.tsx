@@ -13,7 +13,7 @@ export const options = {
   legend: { display: false },
 };
 
-const datasetAssembler = ({ labels, data }: DoughnutChartProps) => ({
+export const datasetAssembler = ({ labels, data }: DoughnutChartProps) => ({
   labels,
   datasets: [
     {

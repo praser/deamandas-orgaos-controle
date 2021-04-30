@@ -53,10 +53,12 @@
         {
           "devDependencies": [
             "**/*.test.ts",
-            "**/*.test.tsx"
+            "**/*.test.tsx",
+            "**/setupTests.ts"
           ]
         }
-      ]
+      ],
+      "react/prop-types": "off"
     },
     "settings": {
       "import/resolver": {

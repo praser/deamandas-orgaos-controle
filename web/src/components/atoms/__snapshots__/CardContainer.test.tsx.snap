@@ -2,7 +2,7 @@
 
 exports[`CardContainer component is expected to match the snapshot 1`] = `
 <div
-  class="sc-bdvvaa fSPymo"
+  class="sc-bdvvaa fXzmeO"
   data-testid="testid"
 />
 `;

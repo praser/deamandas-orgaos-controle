@@ -1,0 +1,19 @@
+.loading > *:first-child:before {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 5.6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: 'carregando...';
+  z-index: 999;
+  font-family: Nunito, -apple-system, system-ui, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 18.4px;
+  color: rgb(133, 135, 150);
+}
