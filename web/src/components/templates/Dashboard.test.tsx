@@ -11,9 +11,9 @@ describe('Dashboard component', () => {
       <Dashboard
         data-testid={testId}
         topbar={<></>}
-        filters={[<></>]}
-        buttons={[<></>]}
-        highlights={[<></>]}
+        filters={[<span key={1} />]}
+        buttons={[<span key={1} />]}
+        highlights={[<span key={1} />]}
         content1={<></>}
         content2={<></>}
         content3={<></>}

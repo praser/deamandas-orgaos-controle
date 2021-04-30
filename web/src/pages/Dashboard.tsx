@@ -24,54 +24,40 @@ import Stats from '../models/stats';
 import Agency from '../models/agency';
 import MonthStats from '../models/monthStats';
 import Attendance from '../models/attendance';
+import { DataTableColumn } from '../components/atoms/DataTableProps';
 
-const HighLightWithLoading = withLoading(Highlight);
-const SelectWithLoading = withLoading(Select);
-const CardWithLoading = withLoading(Card);
+export const HighLightWithLoading = withLoading(Highlight);
+export const SelectWithLoading = withLoading(Select);
+export const CardWithLoading = withLoading(Card);
+const appName = process.env.REACT_APP_NAME || '';
+const jwtKey = process.env.REACT_APP_JWT_KEY || 'jwt';
 
-const getUser = (): User => {
-  const jwtKey = process.env.REACT_APP_JWT_KEY || '';
+export const getUser = (): User => {
   const jwt: string = sessionStorage.getItem(jwtKey) || '';
   const { user } = jwtDecode<JwtPayload>(jwt);
   return user;
 };
 
-const TopBar = (): JSX.Element => {
-  const appName = process.env.REACT_APP_NAME || '';
-  const { name, physicalLotationAbbreviation, photo } = getUser();
-  return (
-    <Header
-      appName={appName}
-      name={name}
-      lotation={physicalLotationAbbreviation}
-      src={photo || defaultPhoto}
-    />
-  );
-};
+export const formatDateISO = (dateISO: string): string =>
+  format(parseISO(dateISO), 'dd/MM/yyyy');
 
-const buttons = [
-  <Button small key={1}>
-    Cadastrar documento
-  </Button>,
-];
-
-const columns = [
+export const columns: DataTableColumn[] = [
   { name: 'Órgão', selector: 'governmentAgency' },
   { name: 'Documento', selector: 'document' },
   {
     name: 'Data de emissão',
     selector: 'issuedAt',
-    format: (row: Attendance) => format(parseISO(row.issuedAt), 'dd/MM/yyyy'),
+    format: (row: Attendance): string => formatDateISO(row.issuedAt),
   },
   {
     name: 'Data de recebimento',
     selector: 'receivedAt',
-    format: (row: Attendance) => format(parseISO(row.issuedAt), 'dd/MM/yyyy'),
+    format: (row: Attendance): string => formatDateISO(row.receivedAt),
   },
   {
     name: 'Prazo para resposta',
     selector: 'deadline',
-    format: (row: Attendance) => format(parseISO(row.issuedAt), 'dd/MM/yyyy'),
+    format: (row: Attendance): string => formatDateISO(row.deadline),
   },
   { name: 'Situação', selector: 'status' },
 ];
@@ -142,6 +128,7 @@ const Dashboard = (): JSX.Element => {
     false,
   );
   const [InAttendance, setInAttendance] = useState<Attendance[]>([]);
+  const { name, physicalLotationAbbreviation, photo } = getUser();
 
   const fetchStats = useCallback(async () => {
     setStatsLoading(true);
@@ -199,7 +186,14 @@ const Dashboard = (): JSX.Element => {
 
   return (
     <DashboardTemplate
-      topbar={<TopBar />}
+      topbar={
+        <Header
+          appName={appName}
+          name={name}
+          lotation={physicalLotationAbbreviation}
+          src={photo || defaultPhoto}
+        />
+      }
       filters={[
         <SelectWithLoading
           loading={agenciesLoading}
@@ -241,7 +235,11 @@ const Dashboard = (): JSX.Element => {
           emptyMessage="Aguarde o carregamento da lista de anos"
         />,
       ]}
-      buttons={buttons}
+      buttons={[
+        <Button small key={1}>
+          Cadastrar documento
+        </Button>,
+      ]}
       highlights={[
         <HighLightWithLoading
           loading={statsLoading}

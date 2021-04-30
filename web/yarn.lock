@@ -1277,6 +1277,18 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@humeris/boule@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@humeris/boule/-/boule-3.0.0.tgz#0ef32030a6366dfcef900d849d9e426316840df3"
+  integrity sha512-2uMvNXGyxR6Wuuct++5duxPRxDQ7X7LbsR3Spsrz5zNk9oAMaH1F5eWmXlihUSvdOgJ2Z2IafWGam58vk3yskA==
+
+"@humeris/espresso-shot@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@humeris/espresso-shot/-/espresso-shot-3.0.0.tgz#d1eba6ef224297291ef871e333d095a9eaea846f"
+  integrity sha512-LuuaIeIIbMceIbyDhIsr+vPLdbVfqLuLLN3nI5IbuxTeEyRp+I4maFtWfBOHChcW/VukeIpk1FjNRUwPW6Up1g==
+  dependencies:
+    "@humeris/boule" "^3.0.0"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"

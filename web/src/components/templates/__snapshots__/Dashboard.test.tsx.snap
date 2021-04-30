@@ -15,14 +15,20 @@ exports[`Dashboard component is expected to match the snapshot 1`] = `
     >
       <div
         class="sc-hKwCoD xvjnu"
-      />
+      >
+        <span />
+      </div>
       <div
         class="sc-hKwCoD xvjnu"
-      />
+      >
+        <span />
+      </div>
     </div>
     <div
       class="sc-hKwCoD xvjnu"
-    />
+    >
+      <span />
+    </div>
     <div
       class="sc-hKwCoD xvjnu"
     >

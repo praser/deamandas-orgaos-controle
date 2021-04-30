@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@humeris/espresso-shot": "^3.0.0",
     "@types/faker": "^5.5.3",
     "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
